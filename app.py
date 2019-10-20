@@ -19,6 +19,7 @@ def landing():
 
 @app.route('/register')
 def register():
+    # in future add try-catch to prevent username repeats
     addToDB(users, request.args.get('username')
                  , request.args.get('password')
                  , request.args.get('email'))
