@@ -11,18 +11,22 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 
 @app.route('/')
 def landing():
-    # form for register
     # form for login
+    # button redirecting to register route
     if loggedIn(): # function is a placeholder
         return redirect(url_for('/main'))
     return render_template('index.html')
 
 @app.route('/register')
 def register():
-    # in future add try-catch to prevent username repeats
-    addToDB(users, request.args.get('username')
-                 , request.args.get('password')
-                 , request.args.get('email'))
+    if successfulRegistration(): # function is a placeholder, may have to use
+                                 # try-catch in the future
+        addToDB(users, request.args.get('username')
+                     , request.args.get('password')
+                     , request.args.get('email'))
+    else:
+        flash("Registration Failed")
+        return redirect(url_for('landing()'))
     return redirect(url_for('main()'))
 
 @app.route('/login')
@@ -35,5 +39,6 @@ def login():
 
 @app.route('/main')
 def main():
+    # button to logout
     return render_template('main.html') # other elements here in future,
                                         # like dropdown forms
