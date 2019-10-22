@@ -7,5 +7,12 @@ db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
 cursor = db.cursor()
 
 
-def addToUserDB(userusername, password, email):
+def addToUserDB(userUsername, userPassword, userEmail):
     db.execute("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT, email TEXT);")
+    db.execute("INSERT INTO {} VALUES ('{}', '{}', '{}');".format(users, userUsername, userPassword, userEmail))
+
+def createStory(title):
+    db.execute("CREATE TABLE IF NOT EXISTS {} (author TEXT PRIMARY KEY, entry TEXT);".format(title))
+
+def addToStoryDB(title, author, entry):
+    db.execute("INSERT INTO {} VALUES ('{}', '{}');".format(title, author, entry))
