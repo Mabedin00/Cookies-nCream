@@ -2,25 +2,22 @@
 
 from flask import Flask, render_template, request, redirect, url_for, flash
 
-# This code skeleton is just for the logging in part, not for the
-# actual page part.
-# Also, here both the login and register forms
-# are just on the main route instead of being on their separate pages.
-# This is for simplicity, I think doing that would require two more routes.
-# We could change it later if we think it looks better.
-
 @app.route('/')
 def landing():
     # form for login
     # button redirecting to register route
-    if loggedIn(): # function is a placeholder
+    if loggedIn():
+        # loggedIn function checks if user is logged in (refer to previous hw on login)
         return redirect(url_for('/main'))
     return render_template('index.html')
 
 @app.route('/register')
 def register():
-    if successfulRegistration(): # function is a placeholder, may have to use
-                                 # try-catch in the future
+    return render_template('register.html')
+@app.route('/processRegistration')
+def processRegistration():
+    if successfulRegistration():
+        # checks if the username is unique, and if there are entries for password and email
         addToDB(users, request.args.get('username')
                      , request.args.get('password')
                      , request.args.get('email'))
@@ -31,7 +28,8 @@ def register():
 
 @app.route('/login')
 def login():
-    if successfulLogin(): # function is a placeholder
+    if successfulLogin():
+        # checks if username and pass are in users db
         return redirect(url_for('main()'))
     else:
         flash("Login Failed")
