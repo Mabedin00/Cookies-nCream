@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 DB_FILE="storyGame.db"
 
-db = sqlite3.connect(DB_FILE, check_same_thread=False)
+db = sqlite3.connect(DB_FILE, check_same_thread = False)
 cursor = db.cursor()
 
 # This code skeleton is just for the logging in part, not for the
@@ -59,9 +59,6 @@ def register():
 def process():
     if successfulLogin(request.args.get('username'), request.args.get('password')): # function is a placeholder
         session['loggedIn'] = true
-        databaseUtils.addToUserDB(request.args.get('username')
-                               , request.args.get('password')
-                               , request.args.get('email'))
         return redirect(url_for('main()'))
     else:
         flash("Registration Failed")
@@ -70,6 +67,9 @@ def process():
 @app.route('/login')
 def login():
     if successfulRegistration(request.args.get('username'), request.args.get('password'), request.args.get('email')): # function is a placeholder
+        databaseUtils.addToUserDB(request.args.get('username')
+                               , request.args.get('password')
+                               , request.args.get('email'))
         return redirect(url_for('main'))
     else:
         flash("Login Failed")
