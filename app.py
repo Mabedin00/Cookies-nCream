@@ -32,7 +32,7 @@ def process():
 
 @app.route('/login')
 def login():
-    if successfulLogin(): # function is a placeholder
+    if successfulRegistration(): # function is a placeholder
         return redirect(url_for('main()'))
     else:
         flash("Login Failed")
