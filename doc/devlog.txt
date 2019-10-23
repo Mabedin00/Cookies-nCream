@@ -1,2 +1,40 @@
 Team -- 2019-10-19 20:38
 Created a design document for the project
+
+Mohidul Abedin -- 2019-10-22 20:07
+Created the database utils 
+
+Team -- 2019-10-22 20:15
+Revised design doc by:
+- improving sitemap
+- adding necessary connections to component map
+- adding labels to wireframe, deleting extraneous page layouts
+- changed database structure
+
+Team -- 2019-10-22 20:22
+Join:
+Inner-Join-
+- joins two tables based on the 'ON' clause, which specifies a common column
+
+Left-Join- 
+- selects data from the left table and matches it to a row in the right table based on the 'ON' clause
+
+Cross-Join-
+- creates all possible combinations of rows
+
+Left join could potentially be useful to email an author the story, or the changes they made to a story by linking the story table and the users table. 
+We could also send an email to a page creator every time an author added to their story.
+
+Team -- 2019-10-22 20:37
+Article "Programming Sucks" was very humorous and well written. It feels relatable, even though we don't have real jobs. 
+Concrete actions:
+- always maintain communications about changes made to code, even if it's on your own individual code part, to prevent errors and merge conflicts
+- use many comments to explain code 
+- follow proper coding conventions
+
+Chen Justin -- 2019-10-22 21:24
+    -Added placeholder code for the html files and included an html template
+    -Added routes in app.py to new html files
+
+Chen Justin -- 2019-10-22 21:51
+    -Added forms for logging in and registering (untested)

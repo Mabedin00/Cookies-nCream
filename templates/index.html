@@ -1,2 +1,15 @@
-<!DOCTYPE HTML>
-Contains login and register forms (for now)
+{% extends "template.html" %}
+
+{% block title %} Hello {% endblock %}
+
+{% block body %}
+    <form method = "POST" action = "/welcome">
+        Username: <input type="text" name="username"><br>
+        Password: <input type="text" name="password"><br>
+        <input type="submit" name="submit">
+    </form>
+    <br>
+    <form method = "POST" action = "/register">
+        <input type = "submit" name="submit" value = "Register">
+      </form>
+{% endblock %}
