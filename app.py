@@ -11,19 +11,24 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 
 @app.route('/')
 def landing():
-    # form for register
     # form for login
+    # button redirecting to register route
     if loggedIn():
         return redirect(url_for('/main'))
     return render_template('index.html')
 
 @app.route('/register')
-def register():
-    # in future add try-catch to prevent username repeats
-    addToUserDB(request.args.get('username')
-              , request.args.get('password')
-              , request.args.get('email'))
-    return redirect(url_for('main()'))
+    return render_template('register.html')
+@app.route('process')
+def process():
+    if successfulLogin(): # function is a placeholder
+        addToUserDB(request.args.get('username')
+                  , request.args.get('password')
+                  , request.args.get('email'))
+        return redirect(url_for('main()'))
+    else:
+        flash("Registration Failed")
+        return redirect(url_for('landing()'))
 
 @app.route('/login')
 def login():
