@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 DB_FILE="storyGame.db"
 
-db = sqlite3.connect(DB_FILE, check_same_thread=False) # in future put into fxns and delete second param
+db = sqlite3.connect(DB_FILE, check_same_thread=False)
 cursor = db.cursor()
 
 # This code skeleton is just for the logging in part, not for the
