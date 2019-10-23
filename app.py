@@ -1,6 +1,6 @@
 # COMPLETELY UNTESTED
 
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 
 import sqlite3
 
@@ -25,6 +25,9 @@ def successfulRegistration(username1,password,email):
 def successfulLogin(username1,password1):
     return password1 == db.execute("SELECT password FROM users WHERE username = {}".format(username1))
 
+def loggedIn():
+    return session['loggedIn']
+
 @app.route('/')
 def landing():
     # form for login
@@ -40,6 +43,7 @@ def register():
 @app.route('process')
 def process():
     if successfulLogin(request.args.get('username'), request.args.get('password')): # function is a placeholder
+        session['loggedIn'] = true
         addToUserDB(request.args.get('username')
                   , request.args.get('password')
                   , request.args.get('email'))
