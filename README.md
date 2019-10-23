@@ -3,7 +3,7 @@
 Scenario One: Cookies 'n Cream
 
 Roles:                                </br>
-Login/Register system (database 0)	  Jacob Olin </br>
-Add/view story (database 1)			      Justin Chen </br>
-HTML/Jinja/Flask -- Website Template	Brian Moses -- Project Manager </br>
-Database utilities				            Mohidul Abedin </br>
+Login/Register system   Jacob Olin </br>
+Jinja/HTML			        Justin Chen </br>
+Flask/Python	          Brian Moses -- Project Manager </br>
+Database 				        Mohidul Abedin </br>
