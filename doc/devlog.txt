@@ -36,3 +36,5 @@ Chen Justin -- 2019-10-22 21:24
     -Added placeholder code for the html files and included an html template
     -Added routes in app.py to new html files
 
+Chen Justin -- 2019-10-22 21:51
+    -Added forms for logging in and registering (untested)
