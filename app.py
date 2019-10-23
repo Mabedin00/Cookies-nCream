@@ -2,12 +2,28 @@
 
 from flask import Flask, render_template, request, redirect, url_for, flash
 
+import sqlite3
+
+DB_FILE="storyGame.db"
+
+db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
+cursor = db.cursor()
+
 # This code skeleton is just for the logging in part, not for the
 # actual page part.
 # Also, here both the login and register forms
 # are just on the main route instead of being on their separate pages.
 # This is for simplicity, I think doing that would require two more routes.
 # We could change it later if we think it looks better.
+
+def successfulRegistration(username1,password,email):
+    passValid = len(password) > 0
+    emailValid = len(email) > 0 and email.count('@') = 1
+    usernameValid = db.execute("{} NOT IN (users|username)".format(username1))
+    return passValid and emailValid and usernameValid
+
+def successfulLogin(username1,password1):
+    return password1 == db.execute("SELECT password FROM users WHERE username = {}".format(username1))
 
 @app.route('/')
 def landing():
@@ -23,7 +39,7 @@ def register():
 
 @app.route('process')
 def process():
-    if successfulLogin(): # function is a placeholder
+    if successfulLogin(request.args.get('username'), request.args.get('password')): # function is a placeholder
         addToUserDB(request.args.get('username')
                   , request.args.get('password')
                   , request.args.get('email'))
@@ -34,7 +50,7 @@ def process():
 
 @app.route('/login')
 def login():
-    if successfulRegistration(): # function is a placeholder
+    if successfulRegistration(request.args.get('username'), request.args.get('password'), request.args.get('email')): # function is a placeholder
         return redirect(url_for('main()'))
     else:
         flash("Login Failed")
