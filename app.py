@@ -18,7 +18,9 @@ def landing():
     return render_template('index.html')
 
 @app.route('/register')
+def register():
     return render_template('register.html')
+
 @app.route('process')
 def process():
     if successfulLogin(): # function is a placeholder
@@ -42,3 +44,11 @@ def login():
 def main():
     return render_template('main.html') # other elements here in future,
                                         # like dropdown forms
+
+@app.route('/view')
+def view():
+    return render_template('view.html')
+
+@app.route('/add')
+def view():
+    return render_template('add.html')
