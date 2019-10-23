@@ -1,2 +1,6 @@
 Team -- 2019-10-19 20:38
 Created a design document for the project
+
+Mohidul Abedin -- 2019-10-22 8:07
+Created the database utils 
+
