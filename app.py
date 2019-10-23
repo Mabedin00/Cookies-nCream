@@ -15,6 +15,8 @@ DB_FILE="storyGame.db"
 db = sqlite3.connect(DB_FILE, check_same_thread = False)
 cursor = db.cursor()
 
+databaseUtils.createUsersDB()
+
 # This code skeleton is just for the logging in part, not for the
 # actual page part.
 # Also, here both the login and register forms
@@ -54,25 +56,25 @@ def landing():
 @app.route('/register')
 def register():
     return render_template('register.html')
-
-@app.route('/process')
-def process():
-    if successfulLogin(request.args.get('username'), request.args.get('password')): # function is a placeholder
-        session['loggedIn'] = true
-        return redirect(url_for('main()'))
-    else:
-        flash("Registration Failed")
-        return redirect(url_for('landing'))
-
-@app.route('/login')
-def login():
-    if successfulRegistration(request.args.get('username'), request.args.get('password'), request.args.get('email')): # function is a placeholder
+@app.route('/processRegistration')
+def processRegistration():
+    if successfulRegistration(request.args.get('username'), request.args.get('password'), request.args.get('email')):
+        print ("Ran successfulRegistration")
         databaseUtils.addToUserDB(request.args.get('username')
                                , request.args.get('password')
                                , request.args.get('email'))
         return redirect(url_for('main'))
     else:
         flash("Login Failed")
+        return redirect(url_for('landing'))
+
+@app.route('/login')
+def login():
+    if successfulLogin(request.args.get('username'), request.args.get('password')): # function is a placeholder
+        session['loggedIn'] = true
+        return redirect(url_for('main()'))
+    else:
+        flash("Registration Failed")
         return redirect(url_for('landing'))
 
 @app.route('/main')
