@@ -3,13 +3,16 @@
 {% block title %} Hello {% endblock %}
 
 {% block body %}
-    <form method = "POST" action = "/welcome">
+
+Flash "Login Failed"
+
+    <form method = "GET" action = "/process">
         Username: <input type="text" name="username"><br>
         Password: <input type="text" name="password"><br>
         <input type="submit" name="submit">
     </form>
     <br>
-    <form method = "POST" action = "/register">
+    <form method = "GET" action = "/register">
         <input type = "submit" name="submit" value = "Register">
       </form>
 {% endblock %}
