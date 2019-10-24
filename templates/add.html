@@ -3,7 +3,9 @@
 {% block title %} Add to Story {% endblock %}
 
 {% block body %}
-    (Shows most recent entry of story)
-    <br>
-    (Form to add to the story)
+    <form method = "GET" action = "/addPage">
+        Story Title: <input type="text" name="storyTitle"><br>
+        Text: <input type="text" name="text"><br>
+        <input type="submit" name="submit">
+    </form>
 {% endblock %}

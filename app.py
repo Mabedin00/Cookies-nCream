@@ -1,4 +1,3 @@
-
 # COMPLETELY UNTESTED
 
 from flask import Flask, render_template, request, redirect, url_for, flash, session
@@ -13,7 +12,6 @@ app = Flask(__name__)
 DB_FILE="storyGame.db"
 
 db = sqlite3.connect(DB_FILE)
-cursor = db.cursor()
 
 db.commit()
 db.close()
@@ -35,7 +33,6 @@ def successfulRegistration(username1,password,email):
 
 def successfulLogin(username1, password1):
     db = sqlite3.connect(DB_FILE)
-    cursor = db.cursor()
     try:
         userPass = list(db.execute("SELECT password FROM users WHERE username = '" + username1 + "';"))[0][0]
         db.commit()
@@ -80,8 +77,7 @@ def processRegistration():
 def login():
     if successfulLogin(request.args.get('username'), request.args.get('password')):
         session['loggedIn'] = True
-        # session['username'] = request.args.get('username')
-        # session['password'] = request.args.get('password')
+        session['username'] = request.args.get('username')
         return redirect(url_for('main'))
     else:
         flash("Registration Failed")
@@ -89,6 +85,8 @@ def login():
 
 @app.route('/main')
 def main():
+    print (session['username'])
+    databaseUtils.searchForAuthor(session['username'])
     return render_template('main.html') # other elements here in future,
                                         # like dropdown forms
 
@@ -101,9 +99,16 @@ def help():
 def view():
     return render_template('view.html')
 
-@app.route('/add')
-def add():
+@app.route('/addForm')
+def addForm():
     return render_template('add.html')
+@app.route('/addPage')
+def addPage():
+    databaseUtils.createStory(request.args.get('storyTitle'))
+    databaseUtils.addToStoryDB(request.args.get('storyTitle'), session['username'], request.args.get('text'))
+    return render_template('view.html',
+                            title = request.args.get('storyTitle'),
+                            text = request.args.get('text'))
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(32)
