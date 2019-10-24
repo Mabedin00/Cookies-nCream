@@ -69,7 +69,7 @@ def register():
 @app.route('/processRegistration')
 def processRegistration():
     if successfulRegistration(request.args.get('username'), request.args.get('password'), request.args.get('email')):
-        print ("Ran successfulRegistration")
+        session['loggedIn'] = True
         databaseUtils.addToUserDB(request.args.get('username'), request.args.get('password'), request.args.get('email'))
         return redirect(url_for('main'))
     else:
@@ -80,8 +80,8 @@ def processRegistration():
 def login():
     if successfulLogin(request.args.get('username'), request.args.get('password')):
         session['loggedIn'] = True
-        session['username'] = request.args.get('username')
-        session['password'] = request.args.get('password')
+        # session['username'] = request.args.get('username')
+        # session['password'] = request.args.get('password')
         return redirect(url_for('main'))
     else:
         flash("Registration Failed")
@@ -91,6 +91,11 @@ def login():
 def main():
     return render_template('main.html') # other elements here in future,
                                         # like dropdown forms
+
+@app.route('/logout')
+def help():
+    session['loggedIn'] = False
+    return redirect(url_for('landing'))
 
 @app.route('/view')
 def view():

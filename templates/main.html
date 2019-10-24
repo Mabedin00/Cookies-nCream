@@ -13,9 +13,11 @@
                 <option value= story> story </option>
             {% endfor %}
         </select>
-    </form> 
+    </form>
     <br>
     (Dropdown for viewing non contributed stories)
     <br>
-    (logout button)
+    <form action='/logout'>
+    <input type = "submit" value = "Logout" />
+    </form>
 {% endblock %}
