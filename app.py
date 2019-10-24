@@ -72,6 +72,8 @@ def processRegistration():
 def login():
     if successfulLogin(request.args.get('username'), request.args.get('password')): # function is a placeholder
         session['loggedIn'] = true
+        session['username'] = request.args.get('username')
+        session['password'] = request.args.get('password')
         return redirect(url_for('main()'))
     else:
         flash("Registration Failed")
