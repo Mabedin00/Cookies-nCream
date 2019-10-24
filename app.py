@@ -12,8 +12,11 @@ app = Flask(__name__)
 
 DB_FILE="storyGame.db"
 
-db = sqlite3.connect(DB_FILE, check_same_thread = False)
+db = sqlite3.connect(DB_FILE)
 cursor = db.cursor()
+
+db.commit()
+db.close()
 
 databaseUtils.createUsersDB()
 
@@ -27,14 +30,27 @@ databaseUtils.createUsersDB()
 def successfulRegistration(username1,password,email):
     passValid = len(password) > 0
     emailValid = len(email) > 0 and email.count('@') == 1
-    usernameValid = db.execute("{} NOT IN (users|username)".format(username1))
-    return passValid and emailValid and usernameValid
+    # usernameValid = db.execute("{} NOT IN (users|username)".format(username1))
+    return passValid and emailValid # and usernameValid
 
-def successfulLogin(username, password):
-    try:
-        return password == db.execute("SELECT password FROM users WHERE username = {}".format(username))
-    except:
-        return False
+def successfulLogin(username1, password1):
+    db = sqlite3.connect(DB_FILE)
+    cursor = db.cursor()
+    # try:
+    print("Ran try block")
+    print (username1)
+    userPass = db.execute("SELECT password FROM users WHERE username = '" + username1 + "';")
+
+    print ("-----------------------")
+    print (userPass)
+    print (password1)
+    db.commit()
+    db.close()
+    return password1 == userPass
+    # except:
+        # db.commit()
+        # db.close()
+        # return False
 
 def loggedIn():
     try:
@@ -60,9 +76,7 @@ def register():
 def processRegistration():
     if successfulRegistration(request.args.get('username'), request.args.get('password'), request.args.get('email')):
         print ("Ran successfulRegistration")
-        databaseUtils.addToUserDB(request.args.get('username')
-                               , request.args.get('password')
-                               , request.args.get('email'))
+        databaseUtils.addToUserDB(request.args.get('username'), request.args.get('password'), request.args.get('email'))
         return redirect(url_for('main'))
     else:
         flash("Login Failed")
@@ -70,7 +84,7 @@ def processRegistration():
 
 @app.route('/login')
 def login():
-    if successfulLogin(request.args.get('username'), request.args.get('password')): # function is a placeholder
+    if successfulLogin(request.args.get('username'), request.args.get('password')):
         session['loggedIn'] = true
         session['username'] = request.args.get('username')
         session['password'] = request.args.get('password')
