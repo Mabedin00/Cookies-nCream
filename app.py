@@ -29,7 +29,7 @@ def successfulRegistration(username,password,email):
     passValid = len(password) > 0
     emailValid = len(email) > 0 and email.count('@') == 1
     db = sqlite3.connect(DB_FILE)
-    usernameValid = list(db.execute(" '{}'NOT IN (users|username)".format(username)))
+    # usernameValid = list(db.execute(" '{}'NOT IN (users|username)".format(username)))
     db.commit()
     db.close()
     return passValid and emailValid # and usernameValid
@@ -70,6 +70,7 @@ def register():
 def processRegistration():
     if successfulRegistration(request.args.get('username'), request.args.get('password'), request.args.get('email')):
         session['loggedIn'] = True
+        session['username'] = request.args.get('username')
         databaseUtils.addToUserDB(request.args.get('username'), request.args.get('password'), request.args.get('email'))
         return redirect(url_for('main'))
     else:
