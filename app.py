@@ -1,5 +1,3 @@
-# COMPLETELY UNTESTED
-
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 import os
 
@@ -29,7 +27,7 @@ def successfulRegistration(username,password,email):
     passValid = len(password) > 0
     emailValid = len(email) > 0 and email.count('@') == 1
     db = sqlite3.connect(DB_FILE)
-    usernameValid = list(db.execute(" '{}'NOT IN (users|username)".format(username)))
+#    usernameValid = list(db.execute(" '{}'NOT IN (users|username)".format(username)))
     db.commit()
     db.close()
     return passValid and emailValid # and usernameValid
@@ -71,9 +69,11 @@ def processRegistration():
     if successfulRegistration(request.args.get('username'), request.args.get('password'), request.args.get('email')):
         session['loggedIn'] = True
         databaseUtils.addToUserDB(request.args.get('username'), request.args.get('password'), request.args.get('email'))
+        print("\tREGISTER SUCCESS") # DIAGNOSTIC
         return redirect(url_for('main'))
     else:
-        flash("Login Failed")
+        print("\tREGISTER FAILED")
+        flash("Login Failed") # DIAGNOSTIC
         return redirect(url_for('landing'))
 
 @app.route('/login')
