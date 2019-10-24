@@ -48,4 +48,7 @@ Team -- 2019-10-23 8:45
 Moses Brian -- 2019-10-23 18:30
     -continued work on bugfixing and combining components
     
+Chen Justin -- 2019-10-24 9:25
+    -added dropdown menu code
+    
 
