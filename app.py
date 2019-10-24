@@ -25,10 +25,13 @@ databaseUtils.createUsersDB()
 # This is for simplicity, I think doing that would require two more routes.
 # We could change it later if we think it looks better.
 
-def successfulRegistration(username1,password,email):
+def successfulRegistration(username,password,email):
     passValid = len(password) > 0
     emailValid = len(email) > 0 and email.count('@') == 1
-    # usernameValid = db.execute("{} NOT IN (users|username)".format(username1))
+    db = sqlite3.connect(DB_FILE)
+    usernameValid = list(db.execute(" '{}'NOT IN (users|username)".format(username)))
+    db.commit()
+    db.close()
     return passValid and emailValid # and usernameValid
 
 def successfulLogin(username1, password1):

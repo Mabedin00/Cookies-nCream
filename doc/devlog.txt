@@ -56,3 +56,6 @@ Moses Brian -- 2019-10-24 14:50
 
 Moses Brian -- 2019-10-24 17:00
     -resolved error with login system, added logout
+
+Abedin Mohidul and Moses Brian -- 2019-10-24 19:20
+    -added DB elements
