@@ -36,21 +36,15 @@ def successfulRegistration(username1,password,email):
 def successfulLogin(username1, password1):
     db = sqlite3.connect(DB_FILE)
     cursor = db.cursor()
-    # try:
-    print("Ran try block")
-    print (username1)
-    userPass = db.execute("SELECT password FROM users WHERE username = '" + username1 + "';")
-
-    print ("-----------------------")
-    print (userPass)
-    print (password1)
-    db.commit()
-    db.close()
-    return password1 == userPass
-    # except:
-        # db.commit()
-        # db.close()
-        # return False
+    try:
+        userPass = list(db.execute("SELECT password FROM users WHERE username = '" + username1 + "';"))[0][0]
+        db.commit()
+        db.close()
+        return password1 == userPass
+    except:
+        db.commit()
+        db.close()
+        return False
 
 def loggedIn():
     try:
@@ -66,7 +60,7 @@ def landing():
     # form for login
     # button redirecting to register route
     if loggedIn():
-        return redirect(url_for('/main'))
+        return redirect(url_for('main'))
     return render_template('index.html')
 
 @app.route('/register')
@@ -85,10 +79,10 @@ def processRegistration():
 @app.route('/login')
 def login():
     if successfulLogin(request.args.get('username'), request.args.get('password')):
-        session['loggedIn'] = true
+        session['loggedIn'] = True
         session['username'] = request.args.get('username')
         session['password'] = request.args.get('password')
-        return redirect(url_for('main()'))
+        return redirect(url_for('main'))
     else:
         flash("Registration Failed")
         return redirect(url_for('landing'))
