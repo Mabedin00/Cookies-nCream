@@ -47,6 +47,13 @@ Team -- 2019-10-23 8:45
 
 Moses Brian -- 2019-10-23 18:30
     -continued work on bugfixing and combining components
+<<<<<<< HEAD
+=======
+    
+Chen Justin -- 2019-10-24 9:25
+    -added dropdown menu code
+    
+>>>>>>> 11e9984e406b4675f3cd87b436d1be509ae896ef
 
 Moses Brian -- 2019-10-24 14:50
     -resolved error with register system
