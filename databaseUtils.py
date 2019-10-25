@@ -35,17 +35,10 @@ def searchForAuthor(username): #session['username']
     for story in masterList:
         story = story[0]
         # returns the user's username if the user has edited the story
-<<<<<<< Updated upstream
         command = "SELECT author FROM {} WHERE author = '{}';"
         command = command.format(story, username)
         # if the list has any elements (i.e. if the user edited the story)
         if len(list(db.execute(command))):
-=======
-        command = "SELECT author FROM {} WHERE EXISTS(SELECT * FROM {} WHERE author = '{}');"
-        command = command.format(story, story, username)
-        if len(list(db.execute(command))) != 0 and username == list(db.execute(command))[0][0]:
-            # if they did, append that story to the list of stories they've edited
->>>>>>> Stashed changes
             editedStories.append(story)
     print (editedStories)
     db.commit()
