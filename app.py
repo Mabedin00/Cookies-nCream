@@ -1,5 +1,3 @@
-# COMPLETELY UNTESTED
-
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 import os
 
@@ -72,9 +70,11 @@ def processRegistration():
         session['loggedIn'] = True
         session['username'] = request.args.get('username')
         databaseUtils.addToUserDB(request.args.get('username'), request.args.get('password'), request.args.get('email'))
+        print("\tREGISTER SUCCESS") # DIAGNOSTIC
         return redirect(url_for('main'))
     else:
-        flash("Login Failed")
+        print("\tREGISTER FAILED")
+        flash("Login Failed") # DIAGNOSTIC
         return redirect(url_for('landing'))
 
 @app.route('/login')
