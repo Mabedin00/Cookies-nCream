@@ -34,10 +34,10 @@ def searchForAuthor(username): #session['username']
     editedStories = []
     for story in masterList:
         story = story[0]
-        # see if user wrote an entry in the story
+        # returns the user's username if the user has edited the story
         command = "SELECT author FROM {} WHERE EXISTS(SELECT * FROM {} WHERE author = '{}');"
         command = command.format(story, story, username)
-        if username == list(db.execute(command))[0][0]:
+        if len(list(db.execute(command))) != 0 and username == list(db.execute(command))[0][0]:
             # if they did, append that story to the list of stories they've edited
             editedStories.append(story)
     print (editedStories)

@@ -90,7 +90,7 @@ def login():
 @app.route('/main')
 def main():
     print (session['username'])
-    # databaseUtils.searchForAuthor(session['username'])
+    databaseUtils.searchForAuthor(session['username'])
     return render_template('main.html') # other elements here in future,
                                         # like dropdown forms
 
