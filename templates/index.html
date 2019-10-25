@@ -3,6 +3,10 @@
 {% block title %} Hello {% endblock %}
 
 {% block body %}
+    {% for message in get_flashed_messages() %}
+        <b> {{ message }} </b> <br>
+    {% endfor %}
+
     <form method = "GET" action = "/login">
         Username: <input type="text" name="username"><br>
         Password: <input type="text" name="password"><br>

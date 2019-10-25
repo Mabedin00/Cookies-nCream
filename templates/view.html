@@ -1,9 +1,15 @@
 {% extends "template.html" %}
 
-{% block title %} View Story {% endblock %}
+{% block title %} {{title}} {% endblock %}
+
+{% block head %} {{title}} {% endblock %}
 
 {% block body %}
-    <h2> {{title}} </h2> <br>
     {{text}}
+    <br>
+
+    <form action = "/">
+        <input type = "submit" value = "Go back to homepage" />
+    </form>
 
 {% endblock %}

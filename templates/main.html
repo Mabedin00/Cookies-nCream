@@ -2,11 +2,9 @@
 
 {% block title %} Welcome! {% endblock %}
 
+{% block head %} <h1> Welcome {{username}} </h1> {% endblock %}
+
 {% block body %}
-    Welcome (username)
-    <br>
-    (Form for making new story)
-    <br>
     <form method = "GET" action = "/view">
         <select name = "stories">
             {% for story in LISTPLACEHOLDER %}
@@ -14,13 +12,25 @@
             {% endfor %}
         </select>
     </form>
+
+    <form action = "/view">
+        <input type = "submit" value = "View Story" />
+    </form>
     <br>
 
     <form action = "/addForm">
-    <input type = "submit" value = "Add Story" />
+        <input type = "submit" value = "Add Story" />
     </form>
-    (Dropdown for viewing non contributed stories)
+
+    <form method = "GET" action = "/view">
+        <select name = "stories">
+            {% for story in LIST2PLACEHOLDER %}
+                <option value= story> story </option>
+            {% endfor %}
+        </select>
+    </form>
     <br>
+    
     <form action = "/logout">
     <input type = "submit" value = "Logout" />
     </form>
