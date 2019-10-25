@@ -27,19 +27,26 @@ def addToStoryDB(title, author, entry):
     db.commit()
     db.close()
 
-def searchForAuthor(username): #session['username']
+def searchForAuthor(username, list): #session['username']
     db = sqlite3.connect(DB_FILE)
     # get list of all stories
     masterList = list(db.execute("SELECT name FROM sqlite_master WHERE type='table';"))[1:]
     editedStories = []
+    unEditedStories = []
     for story in masterList:
         story = story[0]
         # returns the user's username if the user has edited the story
-        command = "SELECT author FROM {} WHERE author = '{}';"
-        command = command.format(story, username)
+        command = "SELECT author FROM {} WHERE author = '{}';".format(story, username)
         # if the list has any elements (i.e. if the user edited the story)
         if len(list(db.execute(command))):
             editedStories.append(story)
-    print (editedStories)
+        else:
+            unEditedStories.append(story)
+    if list == "editedStories":
+        return editedStories
+    if list == "unEditedStories":
+        return unEditedStories
+    else:
+        return "Dun goofed"
     db.commit()
     db.close()

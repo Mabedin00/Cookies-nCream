@@ -27,10 +27,17 @@ def successfulRegistration(username,password,email):
     passValid = len(password) > 0
     emailValid = len(email) > 0 and email.count('@') == 1
     db = sqlite3.connect(DB_FILE)
-    # usernameValid = list(db.execute(" '{}'NOT IN (users|username)".format(username)))
+    # see if username is already taken
+    try:
+        command = "SELECT username FROM {} WHERE username = '{}';".format('users', username)
+        usernameValid != len(list(db.execute(command)))
+    except:
+        return False
+    print ("---------------------------")
+    print (usernameValid)
     db.commit()
     db.close()
-    return passValid and emailValid # and usernameValid
+    return passValid and emailValid and usernameValid
 
 def successfulLogin(username1, password1):
     db = sqlite3.connect(DB_FILE)
@@ -72,7 +79,7 @@ def processRegistration():
         databaseUtils.addToUserDB(request.args.get('username'), request.args.get('password'), request.args.get('email'))
         return redirect(url_for('main'))
     else:
-        flash("Registration Failed") 
+        flash("Registration Failed")
         return redirect(url_for('register'))
 
 @app.route('/login')
@@ -88,8 +95,6 @@ def login():
 @app.route('/main')
 def main():
     user = session['username']
-    print (user)
-    databaseUtils.searchForAuthor(user)
     return render_template('main.html', username = user) # other elements here in future,
                                         # like dropdown forms
 
