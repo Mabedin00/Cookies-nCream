@@ -31,7 +31,7 @@ def searchForAuthor(username): #session['username']
     db = sqlite3.connect(DB_FILE)
     # get list of all stories
     masterList = list(db.execute("SELECT name FROM sqlite_master WHERE type='table';"))
-    masterList.remove("users")
+    # masterList.remove("users")
     editedStories = []
     for story in masterList:
         story = story[0]
