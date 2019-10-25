@@ -64,6 +64,9 @@ Chen Justin -- 2019-10-24
     -added more elements to html files based on wireframe
     -changed site background color because white is blinding
     -added flash functionality in html files and fixed flash in app.py
-    
+
 Olin Jacob -- 2019-10-24 11:27
     -Updated the README with information on how to run our project
+
+Team -- 2019-10-25 9:00
+    -Fixed unique username error when registering
