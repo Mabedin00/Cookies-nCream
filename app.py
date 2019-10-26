@@ -75,7 +75,7 @@ def main():
     return render_template('main.html',
     username = session['username'],
     editedStories = databaseUtils.searchForAuthor(session['username'])[0],
-    unEditedStories = databaseUtils.searchForAuthor(session['username'][1]))
+    unEditedStories = databaseUtils.searchForAuthor(session['username'])[1])
     # searchForAuthor returns a list with two elements, the first element is
     # editedStories and the second is unEditedStories
 
