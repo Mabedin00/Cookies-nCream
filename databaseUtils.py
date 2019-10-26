@@ -45,3 +45,12 @@ def searchForAuthor(username):
     return [editedStories, unEditedStories]
     db.commit()
     db.close()
+
+def getEntries(storyName):
+    db = sqlite3.connect(DB_FILE)
+    allEntries = []
+    command = "SELECT entry FROM {};".format(storyName)
+    for entries in list(db.execute(command)):
+        allEntries.append(entries[0])
+    return allEntries
+    db.close()

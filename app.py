@@ -10,10 +10,10 @@ def successfulRegistration(username,password,email):
     emailValid = len(email) > 0 and email.count('@') == 1
     db = sqlite3.connect(DB_FILE)
     # see if username is already taken
-    try:
-        command = "SELECT username FROM {} WHERE username = '{}';".format('users', username)
-        usernameValid != len(list(db.execute(command)))
-    except:
+    command = "SELECT username FROM {} WHERE username = '{}';".format('users', username)
+    if (len(list(db.execute(command))) == 0):
+        usernameValid = True
+    else:
         return False
     db.commit()
     db.close()
