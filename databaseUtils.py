@@ -52,13 +52,13 @@ def getEntries(storyName):
     command = "SELECT entry FROM {};".format(storyName)
     for entries in list(db.execute(command)):
         allEntries.append(entries[0])
+    return allEntries
     db.commit()
     db.close()
-    return allEntries
 
 def getLatestEntry(storyName):
     db = sqlite3.connect(DB_FILE)
-    command = "SELECT entry FROM {}} ORDER BY rowid DESC LIMIT 1;".format(storyName)
+    command = "SELECT entry FROM {} ORDER BY rowid DESC LIMIT 1;".format(storyName)
+    return list(db.execute(command))
     db.commit()
     db.close()
-    return list(db.execute(command))

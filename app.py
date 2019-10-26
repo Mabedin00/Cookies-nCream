@@ -87,17 +87,29 @@ def help():
 
 @app.route('/viewLatest')
 def viewLatest():
-    story = request.args.get('story')
+    session['story'] = request.args.get('story')
     return render_template('viewLatest.html'
-    , title = story
-    , text = databaseUtils.getLatestEntry(story))
+    , title = session['story']
+    , text = databaseUtils.getLatestEntry(session['story']))
+
+@app.route('/appendToStory')
+def appendToStory():
+    session['story'] = request.args.get('story')
+    databaseUtils.addToStoryDB(request.args.get('story'), session['username'], request.args.get('newText'))
+    return redirect(url_for('viewAll'))
+
 
 @app.route('/viewAll')
 def viewAll():
-    story = request.args.get('story')
+    # if user was directed here by add story
+    if request.args.get('story') != None:
+        story = request.args.get('story')
+    # if they were directed here by append to story
+    else:
+        story = session['story']
     return render_template('viewAll.html'
     , title = story
-    , text = databaseUtils.getEntries(story)[0])
+    , text = databaseUtils.getEntries(story))
 
 @app.route('/addForm')
 def addForm():
