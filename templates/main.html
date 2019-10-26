@@ -5,9 +5,10 @@
 {% block head %} <h1> Welcome {{username}} </h1> {% endblock %}
 
 {% block body %}
+    Edited Stories:
     <form method = "GET" action = "/view">
         <select name = "stories">
-            {% for story in LISTPLACEHOLDER %}
+            {% for story in editedStories %}
                 <option value= story> story </option>
             {% endfor %}
         </select>
@@ -22,15 +23,16 @@
         <input type = "submit" value = "Add Story" />
     </form>
 
+    Unedited Stories:
     <form method = "GET" action = "/view">
         <select name = "stories">
-            {% for story in LIST2PLACEHOLDER %}
+            {% for story in unEditedStories %}
                 <option value= story> story </option>
             {% endfor %}
         </select>
     </form>
     <br>
-    
+
     <form action = "/logout">
     <input type = "submit" value = "Logout" />
     </form>

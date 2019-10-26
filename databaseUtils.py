@@ -27,7 +27,7 @@ def addToStoryDB(title, author, entry):
     db.commit()
     db.close()
 
-def searchForAuthor(username, list): #session['username']
+def searchForAuthor(username):
     db = sqlite3.connect(DB_FILE)
     # get list of all stories
     masterList = list(db.execute("SELECT name FROM sqlite_master WHERE type='table';"))[1:]
@@ -42,11 +42,6 @@ def searchForAuthor(username, list): #session['username']
             editedStories.append(story)
         else:
             unEditedStories.append(story)
-    if list == "editedStories":
-        return editedStories
-    if list == "unEditedStories":
-        return unEditedStories
-    else:
-        return "Dun goofed"
+    return [editedStories, unEditedStories]
     db.commit()
     db.close()

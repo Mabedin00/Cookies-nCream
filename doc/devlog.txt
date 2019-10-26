@@ -70,3 +70,6 @@ Olin Jacob -- 2019-10-24 11:27
 
 Team -- 2019-10-25 9:00
     -Fixed unique username error when registering
+
+Moses Brian -- 2019-10-25 20:00
+    -improved fetching of lists of stories user has and has not edited

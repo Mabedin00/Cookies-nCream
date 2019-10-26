@@ -1,27 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-import os
-
-import databaseUtils
-
-import sqlite3
+import os, databaseUtils, sqlite3
 
 app = Flask(__name__)
-
-DB_FILE="storyGame.db"
-
-db = sqlite3.connect(DB_FILE)
-
-db.commit()
-db.close()
-
+DB_FILE = "storyGame.db"
 databaseUtils.createUsersDB()
-
-# This code skeleton is just for the logging in part, not for the
-# actual page part.
-# Also, here both the login and register forms
-# are just on the main route instead of being on their separate pages.
-# This is for simplicity, I think doing that would require two more routes.
-# We could change it later if we think it looks better.
 
 def successfulRegistration(username,password,email):
     passValid = len(password) > 0
@@ -33,8 +15,6 @@ def successfulRegistration(username,password,email):
         usernameValid != len(list(db.execute(command)))
     except:
         return False
-    print ("---------------------------")
-    print (usernameValid)
     db.commit()
     db.close()
     return passValid and emailValid and usernameValid
@@ -62,8 +42,6 @@ def loggedIn():
 
 @app.route('/')
 def landing():
-    # form for login
-    # button redirecting to register route
     if loggedIn():
         return redirect(url_for('main'))
     return render_template('index.html')
@@ -94,9 +72,12 @@ def login():
 
 @app.route('/main')
 def main():
-    user = session['username']
-    return render_template('main.html', username = user) # other elements here in future,
-                                        # like dropdown forms
+    return render_template('main.html',
+    username = session['username'],
+    editedStories = databaseUtils.searchForAuthor(session['username'])[0],
+    unEditedStories = databaseUtils.searchForAuthor(session['username'][1]))
+    # searchForAuthor returns a list with two elements, the first element is
+    # editedStories and the second is unEditedStories
 
 @app.route('/logout')
 def help():
