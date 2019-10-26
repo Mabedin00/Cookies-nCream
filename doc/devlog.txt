@@ -75,5 +75,8 @@ Moses Brian -- 2019-10-25 20:00
     -improved fetching of lists of stories user has and has not edited
 
 Abedin Mohidul -- 2019-10-25 21:17
-    -getEntries function adn fixed registration
+    -getEntries function and fixed registration
+
+Chen Justin -- 2019-10-25
+    -Fixed main.html forms and added code for viewing stories
 

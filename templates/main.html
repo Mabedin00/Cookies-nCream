@@ -5,34 +5,30 @@
 {% block head %} <h1> Welcome {{username}} </h1> {% endblock %}
 
 {% block body %}
-    Edited Stories:
+    <b> Edited Stories: </b>
     <form method = "GET" action = "/viewAll">
-        <select name = "stories">
+        <select name = "story">
             {% for story in editedStories %}
-                <option value= story> {{story}} </option>
+                <option value= {{story}}> {{story}} </option>
             {% endfor %}
         </select>
+        <input type = "submit" value = "View Story" />
     </form>
+    <br>
 
-    <form action = "/viewLatest">
+    <b> Unedited Stories: </b>
+    <form method = "GET" action = "/viewLatest">
+        <select name = "story">
+            {% for story in unEditedStories %}
+                <option value = {{story}}> {{story}} </option>
+            {% endfor %}
+        </select>
         <input type = "submit" value = "View Story" />
     </form>
     <br>
 
     <form action = "/addForm">
-        <input type = "submit" value = "Add Story" />
-    </form>
-
-    Unedited Stories:
-    <form method = "GET" action = "/view">
-        <select name = "stories">
-            {% for story in unEditedStories %}
-                <option value = story> {{story}} </option>
-            {% endfor %}
-        </select>
-    </form>
-    <form action = "/viewLatest">
-        <input type = "submit" value = "View Story" />
+        <input type = "submit" value = "Add a story" />
     </form>
     <br>
 

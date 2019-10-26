@@ -87,15 +87,17 @@ def help():
 
 @app.route('/viewLatest')
 def viewLatest():
+    story = request.args.get('story')
     return render_template('viewLatest.html'
-    , title = "hi"
-    , text = "hello")
+    , title = story
+    , text = databaseUtils.getEntries(story)[0])
 
 @app.route('/viewAll')
 def viewAll():
+    story = request.args.get('story')
     return render_template('viewAll.html'
-    , title = "hi"
-    , text = "hello")
+    , title = story
+    , text = databaseUtils.getEntries(story)[0])
 
 @app.route('/addForm')
 def addForm():
