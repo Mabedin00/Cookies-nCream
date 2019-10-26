@@ -90,7 +90,7 @@ def viewLatest():
     story = request.args.get('story')
     return render_template('viewLatest.html'
     , title = story
-    , text = databaseUtils.getEntries(story)[0])
+    , text = databaseUtils.getLatestEntry(story))
 
 @app.route('/viewAll')
 def viewAll():
