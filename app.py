@@ -85,9 +85,17 @@ def help():
     flash('You have been logged out')
     return redirect(url_for('landing'))
 
-@app.route('/view')
-def view():
-    return render_template('view.html')
+@app.route('/viewLatest')
+def viewLatest():
+    return render_template('viewLatest.html'
+    , title = "hi"
+    , text = "hello")
+
+@app.route('/viewAll')
+def viewAll():
+    return render_template('viewAll.html'
+    , title = "hi"
+    , text = "hello")
 
 @app.route('/addForm')
 def addForm():
@@ -96,7 +104,7 @@ def addForm():
 def addPage():
     databaseUtils.createStory(request.args.get('storyTitle'))
     databaseUtils.addToStoryDB(request.args.get('storyTitle'), session['username'], request.args.get('text'))
-    return render_template('view.html',
+    return render_template('viewAll.html',
                             title = request.args.get('storyTitle'),
                             text = request.args.get('text'))
 

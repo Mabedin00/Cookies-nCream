@@ -6,15 +6,15 @@
 
 {% block body %}
     Edited Stories:
-    <form method = "GET" action = "/view">
+    <form method = "GET" action = "/viewAll">
         <select name = "stories">
             {% for story in editedStories %}
-                <option value= story> story </option>
+                <option value= story> {{story}} </option>
             {% endfor %}
         </select>
     </form>
 
-    <form action = "/view">
+    <form action = "/viewLatest">
         <input type = "submit" value = "View Story" />
     </form>
     <br>
@@ -27,9 +27,12 @@
     <form method = "GET" action = "/view">
         <select name = "stories">
             {% for story in unEditedStories %}
-                <option value= story> story </option>
+                <option value = story> {{story}} </option>
             {% endfor %}
         </select>
+    </form>
+    <form action = "/viewLatest">
+        <input type = "submit" value = "View Story" />
     </form>
     <br>
 
