@@ -12,11 +12,16 @@ Database 				        Mohidul Abedin </br>
 
 The first step to run our website is to download flask in the terminal using the following commands:</br>
 
-python3 -m venv <i>something</i>             where <i>something</i> can be anything</br>
+python3 -m venv <i>something</i>           #where <i>something</i> can be anything</br>
 . hero/bin/activate</br>
 pip3 install flask</br>
 deactivate</br></br>
 
+The next step is to clone our repository by running the following command in the terminal:</br>
+git clone https://github.com/Mabedin00/Cookies-nCream.git </br></br>
+
+Next simply run the following command to get our website running:</br>
+python3 app.py</br></br>
 
 To access our website go to http://127.0.0.1:5000/ after running after running app.py in the terminal. </br>
 You will be given the option to either sign in, or register for an account.</br>
