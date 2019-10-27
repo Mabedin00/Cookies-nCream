@@ -1,0 +1,16 @@
+{% extends "template.html" %}
+
+{% block title %} Adding to {{Story}} {% endblock %}
+
+{% block body %}
+    <b> Latest entry: {{text}} </b> <br><br>
+    <textarea rows = "25" cols = "100" name = "newText" form = "append"></textarea>
+    <form method = "GET" action = "/appendToStory" id = "append">
+        <input type="submit" value = "Add">
+    </form>
+    <br>
+
+    <form action = "/">
+        <input type = "submit" value = "Go back to homepage" />
+    </form>
+{% endblock %}
