@@ -62,7 +62,6 @@ Abedin Mohidul and Moses Brian -- 2019-10-24 19:20
 
 Chen Justin -- 2019-10-24
     -added more elements to html files based on wireframe
-    -changed site background color because white is blinding
     -added flash functionality in html files and fixed flash in app.py
 
 Olin Jacob -- 2019-10-24 11:27
