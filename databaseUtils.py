@@ -5,38 +5,45 @@ DB_FILE="storyGame.db"
 
 def createUsersDB():
     db = sqlite3.connect(DB_FILE)
-    db.execute("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT, email TEXT);")
+    db.execute("""CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT, email TEXT);""")
     db.commit()
     db.close()
 
 def addToUserDB(userUsername, userPassword, userEmail):
     db = sqlite3.connect(DB_FILE)
-    db.execute("INSERT INTO users VALUES ('{}', '{}', '{}');".format(userUsername, userPassword, userEmail))
+    db.execute("""INSERT INTO users VALUES ('{}', '{}', '{}');""".format(userUsername, userPassword, userEmail))
     db.commit()
     db.close()
 
 def createStory(title):
     db = sqlite3.connect(DB_FILE)
-    db.execute("CREATE TABLE IF NOT EXISTS {} (author TEXT PRIMARY KEY, entry TEXT);".format(title))
-    db.commit()
-    db.close()
+    try:
+        db.execute("CREATE TABLE {} (author TEXT PRIMARY KEY, entry TEXT);".format(title))
+        db.commit()
+        db.close()
+        return True
+    except:
+        db.commit()
+        db.close()
+        return False
 
 def addToStoryDB(title, author, entry):
+    print(entry)
     db = sqlite3.connect(DB_FILE)
-    db.execute("INSERT INTO {} VALUES ('{}', '{}');".format(title, author, entry))
+    db.execute("""INSERT INTO {} VALUES ("{}", "{}");""".format(title, author, entry))
     db.commit()
     db.close()
 
 def searchForAuthor(username):
     db = sqlite3.connect(DB_FILE)
     # get list of all stories
-    masterList = list(db.execute("SELECT name FROM sqlite_master WHERE type='table';"))[1:]
+    masterList = list(db.execute("""SELECT name FROM sqlite_master WHERE type='table';"""))[1:]
     editedStories = []
     unEditedStories = []
     for story in masterList:
         story = story[0]
         # returns the user's username if the user has edited the story
-        command = "SELECT author FROM {} WHERE author = '{}';".format(story, username)
+        command = """SELECT author FROM {} WHERE author = '{}';""".format(story, username)
         # if the list has any elements (i.e. if the user edited the story)
         if len(list(db.execute(command))):
             editedStories.append(story)
@@ -69,16 +76,16 @@ def successfulRegistration(username,password,email):
     emailValid = len(email) > 0 and email.count('@') == 1
     db = sqlite3.connect(DB_FILE)
     # see if username is already taken
-    command = "SELECT username FROM {} WHERE username = '{}';".format('users', username)
+    command = """SELECT username FROM {} WHERE username = '{}';""".format('users', username)
     usernameValid = not bool(len(list(db.execute(command))))
     db.commit()
     db.close()
-    return [passValid, emailValid, usernameValid]
+    return [usernameValid, passValid, emailValid]
 
 def successfulLogin(username, password):
     db = sqlite3.connect(DB_FILE)
     try:
-        userPass = list(db.execute("SELECT password FROM users WHERE username = '{}';".format(username)))[0][0]
+        userPass = list(db.execute("""SELECT password FROM users WHERE username = '{}';""".format(username)))[0][0]
         db.commit()
         db.close()
         return [True, password == userPass]

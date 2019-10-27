@@ -40,7 +40,6 @@ def processRegistration():
     registration = databaseUtils.successfulRegistration(request.args.get('username')
                                                       , request.args.get('password')
                                                       , request.args.get('email'))
-    print(registration)
     if not registration[0]: flash("Username Taken")
     if not registration[1]: flash("Please enter a password")
     if not registration[2]: flash("Please enter a valid email address")
@@ -118,12 +117,14 @@ def addForm():
     return render_template('add.html')
 @app.route('/addPage')
 def addPage():
-    databaseUtils.createStory(request.args.get('storyTitle'))
-    print(request.args.get('text'))
-    databaseUtils.addToStoryDB(request.args.get('storyTitle'), session['username'], request.args.get('text'))
-    return render_template('viewAll.html',
-                            title = request.args.get('storyTitle'),
-                            text = databaseUtils.getLatestEntry(request.args.get('storyTitle')))
+    if databaseUtils.createStory(request.args.get('storyTitle')):
+        databaseUtils.addToStoryDB(request.args.get('storyTitle'), session['username'], request.args.get('text'))
+        return render_template('viewAll.html',
+                                title = request.args.get('storyTitle'),
+                                text = databaseUtils.getLatestEntry(request.args.get('storyTitle')))
+    else:
+        flash("Story name already taken")
+        return redirect(url_for('main'))
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(32)
