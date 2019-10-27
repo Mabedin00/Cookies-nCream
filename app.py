@@ -20,29 +20,38 @@ def landing():
         return redirect(url_for('main'))
     return render_template('index.html')
 
+@app.route('/login')
+def login():
+    loginData = databaseUtils.successfulLogin(request.args.get('username'), request.args.get('password'))
+    if not loginData[0]: flash("Username does not exist")
+    if not loginData[1]: flash("Password invalid")
+    if loginData[0] and loginData[1]:
+        session['loggedIn'] = True
+        session['username'] = request.args.get('username')
+        return redirect(url_for('main'))
+    else:
+        return redirect(url_for('landing'))
+
 @app.route('/register')
 def register():
     return render_template('register.html')
 @app.route('/processRegistration')
 def processRegistration():
-    if databaseUtils.successfulRegistration(request.args.get('username'), request.args.get('password'), request.args.get('email')):
+    registration = databaseUtils.successfulRegistration(request.args.get('username')
+                                                      , request.args.get('password')
+                                                      , request.args.get('email'))
+    print(registration)
+    if not registration[0]: flash("Username Taken")
+    if not registration[1]: flash("Please enter a password")
+    if not registration[2]: flash("Please enter a valid email address")
+
+    if registration[0] and registration[1] and registration[2]:
         session['loggedIn'] = True
         session['username'] = request.args.get('username')
         databaseUtils.addToUserDB(request.args.get('username'), request.args.get('password'), request.args.get('email'))
         return redirect(url_for('main'))
     else:
-        flash("Registration Failed")
         return redirect(url_for('register'))
-
-@app.route('/login')
-def login():
-    if databaseUtils.successfulLogin(request.args.get('username'), request.args.get('password')):
-        session['loggedIn'] = True
-        session['username'] = request.args.get('username')
-        return redirect(url_for('main'))
-    else:
-        flash("Login Failed")
-        return redirect(url_for('landing'))
 
 @app.route('/main')
 def main():
@@ -110,10 +119,11 @@ def addForm():
 @app.route('/addPage')
 def addPage():
     databaseUtils.createStory(request.args.get('storyTitle'))
+    print(request.args.get('text'))
     databaseUtils.addToStoryDB(request.args.get('storyTitle'), session['username'], request.args.get('text'))
     return render_template('viewAll.html',
                             title = request.args.get('storyTitle'),
-                            text = request.args.get('text'))
+                            text = databaseUtils.getLatestEntry(request.args.get('storyTitle')))
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(32)

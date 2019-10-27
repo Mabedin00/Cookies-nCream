@@ -48,10 +48,10 @@ def searchForAuthor(username):
 
 def getEntries(storyName):
     db = sqlite3.connect(DB_FILE)
-    allEntries = []
+    allEntries = ""
     command = "SELECT entry FROM {};".format(storyName)
     for entries in list(db.execute(command)):
-        allEntries.append(entries[0])
+        allEntries += entries[0] + " "
     return allEntries
     db.commit()
     db.close()
@@ -59,6 +59,7 @@ def getEntries(storyName):
 def getLatestEntry(storyName):
     db = sqlite3.connect(DB_FILE)
     command = "SELECT entry FROM {} ORDER BY rowid DESC LIMIT 1;".format(storyName)
+    print (list(db.execute(command)))
     return list(db.execute(command))[0][0]
     db.commit()
     db.close()
@@ -69,22 +70,21 @@ def successfulRegistration(username,password,email):
     db = sqlite3.connect(DB_FILE)
     # see if username is already taken
     command = "SELECT username FROM {} WHERE username = '{}';".format('users', username)
-    if (len(list(db.execute(command))) == 0):
-        usernameValid = True
-    else:
-        return False
+    usernameValid = not bool(len(list(db.execute(command))))
     db.commit()
     db.close()
-    return passValid and emailValid and usernameValid
+    return [passValid, emailValid, usernameValid]
 
-def successfulLogin(username1, password1):
+def successfulLogin(username, password):
     db = sqlite3.connect(DB_FILE)
     try:
-        userPass = list(db.execute("SELECT password FROM users WHERE username = '" + username1 + "';"))[0][0]
+        userPass = list(db.execute("SELECT password FROM users WHERE username = '{}';".format(username)))[0][0]
         db.commit()
         db.close()
-        return password1 == userPass
+        return [True, password == userPass]
     except:
         db.commit()
         db.close()
-        return False
+        userPass = ""
+        if len(password) == 0 or len(username) == 0: return [False, False]
+        return [False, password == userPass]

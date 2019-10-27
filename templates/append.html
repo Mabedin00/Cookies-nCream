@@ -3,6 +3,7 @@
 {% block title %} Adding to {{Story}} {% endblock %}
 
 {% block body %}
+  {% block header %}{% endblock %}
     <b> Latest entry: {{text}} </b> <br><br>
     <textarea rows = "25" cols = "100" name = "newText" form = "append"></textarea>
     <form method = "GET" action = "/appendToStory" id = "append">

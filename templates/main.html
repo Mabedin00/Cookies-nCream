@@ -9,6 +9,8 @@
         <b> {{ message }} </b> <br>
     {% endfor %} <br>
 
+    {% block header %} {% endblock %}
+
     <b> Edited Stories: </b>
     <form method = "GET" action = "/viewAll">
         <select name = "story">
@@ -27,7 +29,6 @@
                 <option value = {{story}}> {{story}} </option>
             {% endfor %}
         </select>
-        <input type = "submit" name = "view" value = "View Story" />
         <input type = "submit" name = "add" value = "Add to Story" />
     </form>
     <br>

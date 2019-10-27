@@ -3,9 +3,13 @@
 {% block title %} Add a Story {% endblock %}
 
 {% block body %}
-    <form method = "GET" action = "/addPage">
-        Story Title: <input type="text" name="storyTitle"><br>
-        Text: <input type="text" name="text"><br>
+
+{% block header %} {% endblock %}
+
+    <form method = "GET" action = "/addPage" id = "add">
+        Story Title: <input type="text" name="storyTitle"><br> <br>
+        Text: <br>
+        <textarea rows = "25" cols = "100" name = "text" form = "add"></textarea> <br>
         <input type="submit" name="submit" value = "Create story">
     </form>
     <br>

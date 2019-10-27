@@ -6,10 +6,11 @@
     {% for message in get_flashed_messages() %}
         <b> {{ message }} </b> <br>
     {% endfor %}
+    <br>
 
     <form method = "GET" action = "/login">
-        Username: <input type="text" name="username"><br>
-        Password: <input type="text" name="password"><br>
+        Username: <input type="text" name="username"><br> <br>
+        Password: <input type="password" name="password"><br> <br>
         <input type="submit" name="submit" value = "Login">
     </form>
     <br>
