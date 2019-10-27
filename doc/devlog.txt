@@ -83,6 +83,7 @@ Chen Justin -- 2019-10-25 22:43
 Moses Brian -- 2019-10-25 23:45
     -Fixed viewAll function
 
-Chen Justin -- 2019-10-26 20:43
+Chen Justin -- 2019-10-26 22:02
     -Added/revised code for appending to a story
     -Fixed how text is displayed when viewing a story
+    -Fixed errors when pressing button with empty dropdown

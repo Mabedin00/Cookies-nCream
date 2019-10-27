@@ -94,29 +94,38 @@ def viewLatest():
 @app.route('/processAppendView')
 def processAppendView():
     session['story'] = request.args.get('story')
+    if session['story'] == None:
+        if request.args.get('view') != None:
+            flash("You can't view nothing")
+        else:
+            flash("You can't add to nothing")
+        return redirect(url_for('main'))
     if request.args.get('view') != None:
         return redirect(url_for('viewLatest'))
     else:
         return render_template('append.html', 
         Story = session['story'], 
         text = databaseUtils.getLatestEntry(session['story']))
-    
 
 @app.route('/appendToStory')
 def appendToStory():
     story = session['story']
+    session['append'] = "true"
     databaseUtils.addToStoryDB(story, session['username'], request.args.get('newText'))
     return redirect(url_for('viewAll'))
 
 
 @app.route('/viewAll')
 def viewAll():
-    # if user was directed here by add story
-    if request.args.get('story') != None:
+    if request.args.get('story') == None:
+        try:
+            if session['append'] == "true": #if user was directed by append story
+                story = session['story']
+        except: #if user has no edited stories
+            flash("You can't view nothing")
+            return redirect(url_for('main'))
+    else: # if user was directed here by add story
         story = request.args.get('story')
-    # if they were directed here by append to story
-    else:
-        story = session['story']
     return render_template('viewAll.html'
     , title = story
     , text = databaseUtils.getEntries(story))

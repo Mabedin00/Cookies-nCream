@@ -5,6 +5,10 @@
 {% block head %} <h1> Welcome {{username}} </h1> {% endblock %}
 
 {% block body %}
+    {% for message in get_flashed_messages() %}
+        <b> {{ message }} </b> <br>
+    {% endfor %} <br>
+
     <b> Edited Stories: </b>
     <form method = "GET" action = "/viewAll">
         <select name = "story">
