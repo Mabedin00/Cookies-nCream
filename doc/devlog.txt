@@ -77,8 +77,12 @@ Moses Brian -- 2019-10-25 20:00
 Abedin Mohidul -- 2019-10-25 21:17
     -getEntries function and fixed registration
 
-Chen Justin -- 2019-10-25
+Chen Justin -- 2019-10-25 22:43
     -Fixed main.html forms and added code for viewing stories
 
 Moses Brian -- 2019-10-25 23:45
     -Fixed viewAll function
+
+Chen Justin -- 2019-10-26 20:43
+    -Added/revised code for appending to a story
+    -Fixed how text is displayed when viewing a story

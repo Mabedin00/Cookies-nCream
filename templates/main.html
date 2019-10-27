@@ -17,13 +17,14 @@
     <br>
 
     <b> Unedited Stories: </b>
-    <form method = "GET" action = "/viewLatest">
+    <form method = "GET" action = "/processAppendView">
         <select name = "story">
             {% for story in unEditedStories %}
                 <option value = {{story}}> {{story}} </option>
             {% endfor %}
         </select>
-        <input type = "submit" value = "View Story" />
+        <input type = "submit" name = "view" value = "View Story" />
+        <input type = "submit" name = "add" value = "Add to Story" />
     </form>
     <br>
 

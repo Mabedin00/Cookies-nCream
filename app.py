@@ -87,15 +87,25 @@ def help():
 
 @app.route('/viewLatest')
 def viewLatest():
-    session['story'] = request.args.get('story')
     return render_template('viewLatest.html'
     , title = session['story']
     , text = databaseUtils.getLatestEntry(session['story']))
 
+@app.route('/processAppendView')
+def processAppendView():
+    session['story'] = request.args.get('story')
+    if request.args.get('view') != None:
+        return redirect(url_for('viewLatest'))
+    else:
+        return render_template('append.html', 
+        Story = session['story'], 
+        text = databaseUtils.getLatestEntry(session['story']))
+    
+
 @app.route('/appendToStory')
 def appendToStory():
-    session['story'] = request.args.get('story')
-    databaseUtils.addToStoryDB(request.args.get('story'), session['username'], request.args.get('newText'))
+    story = session['story']
+    databaseUtils.addToStoryDB(story, session['username'], request.args.get('newText'))
     return redirect(url_for('viewAll'))
 
 
