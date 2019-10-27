@@ -86,3 +86,9 @@ Chen Justin -- 2019-10-26 22:02
     -Added/revised code for appending to a story
     -Fixed how text is displayed when viewing a story
     -Fixed errors when pressing button with empty dropdown
+
+Olin Jacob -- 2019-10-27 11:55
+    -Moved functions using the database in app.py to databaseUtils.py
+    
+Olin Jacob -- 2019-10-27 12:06
+    -Updated the README with more information on how to run our project
