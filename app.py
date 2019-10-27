@@ -5,32 +5,6 @@ app = Flask(__name__)
 DB_FILE = "storyGame.db"
 databaseUtils.createUsersDB()
 
-def successfulRegistration(username,password,email):
-    passValid = len(password) > 0
-    emailValid = len(email) > 0 and email.count('@') == 1
-    db = sqlite3.connect(DB_FILE)
-    # see if username is already taken
-    command = "SELECT username FROM {} WHERE username = '{}';".format('users', username)
-    if (len(list(db.execute(command))) == 0):
-        usernameValid = True
-    else:
-        return False
-    db.commit()
-    db.close()
-    return passValid and emailValid and usernameValid
-
-def successfulLogin(username1, password1):
-    db = sqlite3.connect(DB_FILE)
-    try:
-        userPass = list(db.execute("SELECT password FROM users WHERE username = '" + username1 + "';"))[0][0]
-        db.commit()
-        db.close()
-        return password1 == userPass
-    except:
-        db.commit()
-        db.close()
-        return False
-
 def loggedIn():
     try:
         return session['loggedIn']
@@ -51,7 +25,7 @@ def register():
     return render_template('register.html')
 @app.route('/processRegistration')
 def processRegistration():
-    if successfulRegistration(request.args.get('username'), request.args.get('password'), request.args.get('email')):
+    if databaseUtils.successfulRegistration(request.args.get('username'), request.args.get('password'), request.args.get('email')):
         session['loggedIn'] = True
         session['username'] = request.args.get('username')
         databaseUtils.addToUserDB(request.args.get('username'), request.args.get('password'), request.args.get('email'))
@@ -62,7 +36,7 @@ def processRegistration():
 
 @app.route('/login')
 def login():
-    if successfulLogin(request.args.get('username'), request.args.get('password')):
+    if databaseUtils.successfulLogin(request.args.get('username'), request.args.get('password')):
         session['loggedIn'] = True
         session['username'] = request.args.get('username')
         return redirect(url_for('main'))
@@ -103,8 +77,8 @@ def processAppendView():
     if request.args.get('view') != None:
         return redirect(url_for('viewLatest'))
     else:
-        return render_template('append.html', 
-        Story = session['story'], 
+        return render_template('append.html',
+        Story = session['story'],
         text = databaseUtils.getLatestEntry(session['story']))
 
 @app.route('/appendToStory')

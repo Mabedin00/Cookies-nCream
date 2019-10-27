@@ -62,3 +62,29 @@ def getLatestEntry(storyName):
     return list(db.execute(command))[0][0]
     db.commit()
     db.close()
+
+def successfulRegistration(username,password,email):
+    passValid = len(password) > 0
+    emailValid = len(email) > 0 and email.count('@') == 1
+    db = sqlite3.connect(DB_FILE)
+    # see if username is already taken
+    command = "SELECT username FROM {} WHERE username = '{}';".format('users', username)
+    if (len(list(db.execute(command))) == 0):
+        usernameValid = True
+    else:
+        return False
+    db.commit()
+    db.close()
+    return passValid and emailValid and usernameValid
+
+def successfulLogin(username1, password1):
+    db = sqlite3.connect(DB_FILE)
+    try:
+        userPass = list(db.execute("SELECT password FROM users WHERE username = '" + username1 + "';"))[0][0]
+        db.commit()
+        db.close()
+        return password1 == userPass
+    except:
+        db.commit()
+        db.close()
+        return False
