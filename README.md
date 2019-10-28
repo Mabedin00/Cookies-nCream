@@ -23,12 +23,11 @@ The next step is to clone our repository:</br>
 ``` shell
 git clone https://github.com/Mabedin00/Cookies-nCream.git 
 ```
-</br></br>
 Next, navigate to the appropriate directory and activate the app with the following command:
 ``` shell
 python3 app.py</br></br>
 ```
-To access our website go to http://127.0.0.1:5000/ after running after running app.py in the terminal. </br>
+To access our website go to http://127.0.0.1:5000/. </br>
 You will be given the option to either sign in, or register for an account.</br>
 If it is your first time on the site you will need to register, otherwise you can sign in with a </br>
 username and password combination that has already been registered.</br></br>
