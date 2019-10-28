@@ -10,7 +10,7 @@ Database 				        Mohidul Abedin </br>
 
 <h3>How to use our website</h3></br></br>
 
-The first step to run our website is to download flask in the terminal using the following commands:
+The first step to run our website is to download flask in the terminal using the following commands<br>
 (Although using a "virtual environment" is not necessary, it makes downloading flask and running the app easier.)</br>
 ``` shell
 python3 -m venv <virtual environment name>
