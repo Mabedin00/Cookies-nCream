@@ -95,3 +95,6 @@ Olin Jacob -- 2019-10-27 12:06
 
 Abedin Mohidul and Moses Brian -- 2019-10-27 17:20
     -Polished html and patched remaining bugs
+    
+Moses Brian -- 2019-10-27 22:30
+    -Added some protection against quotes, removed some extraneous lines
