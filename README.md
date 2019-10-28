@@ -12,11 +12,11 @@ Database 				        Mohidul Abedin </br>
 
 The first step to run our website is to download flask in the terminal using the following commands:</br>
 
-''' shell
+```
 python3 -m venv <virtual environment name>
 . <virtual environment name>/bin/activate</br>
 pip3 install flask</br>
-'''
+```
 
 Although using a "virtual environment" is not necessary, it makes downloading flask and running the app easier.
 
