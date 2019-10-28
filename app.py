@@ -72,7 +72,7 @@ def help():
 def processAppendView():
     session['story'] = request.args.get('story')
     if session['story'] == None:
-        flash("You can't view nothing")
+        flash("You can't add to nothing")
         return redirect(url_for('main'))
     return render_template('append.html',
                            story = session['story'],
@@ -87,7 +87,8 @@ def appendToStory():
 
 @app.route('/viewAll')
 def viewAll():
-    if request.args.get('story') == None and session['story'] == None:
+    session['story'] = request.args.get('story');
+    if request.args.get('story') == None:
         flash("You can't view nothing")
         return redirect(url_for('main'))
     return render_template('viewAll.html'
