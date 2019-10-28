@@ -3,6 +3,7 @@ import os, databaseUtils, sqlite3
 
 app = Flask(__name__)
 DB_FILE = "storyGame.db"
+
 databaseUtils.createUsersDB()
 
 def loggedIn():
@@ -67,50 +68,31 @@ def help():
     flash('You have been logged out')
     return redirect(url_for('landing'))
 
-@app.route('/viewLatest')
-def viewLatest():
-    return render_template('viewLatest.html'
-    , title = session['story']
-    , text = databaseUtils.getLatestEntry(session['story']))
-
 @app.route('/processAppendView')
 def processAppendView():
     session['story'] = request.args.get('story')
     if session['story'] == None:
-        if request.args.get('view') != None:
-            flash("You can't view nothing")
-        else:
-            flash("You can't add to nothing")
+        flash("You can't view nothing")
         return redirect(url_for('main'))
-    if request.args.get('view') != None:
-        return redirect(url_for('viewLatest'))
-    else:
-        return render_template('append.html',
-        Story = session['story'],
-        text = databaseUtils.getLatestEntry(session['story']))
+    return render_template('append.html',
+                           story = session['story'],
+                           text = databaseUtils.getLatestEntry(session['story']))
 
 @app.route('/appendToStory')
 def appendToStory():
     story = session['story']
-    session['append'] = "true"
     databaseUtils.addToStoryDB(story, session['username'], request.args.get('newText'))
     return redirect(url_for('viewAll'))
 
 
 @app.route('/viewAll')
 def viewAll():
-    if request.args.get('story') == None:
-        try:
-            if session['append'] == "true": #if user was directed by append story
-                story = session['story']
-        except: #if user has no edited stories
-            flash("You can't view nothing")
-            return redirect(url_for('main'))
-    else: # if user was directed here by add story
-        story = request.args.get('story')
+    if request.args.get('story') == None and session['story'] == None:
+        flash("You can't view nothing")
+        return redirect(url_for('main'))
     return render_template('viewAll.html'
-    , title = story
-    , text = databaseUtils.getEntries(story))
+                         , title = session['story']
+                         , text = databaseUtils.getEntries(session['story']))
 
 @app.route('/addForm')
 def addForm():

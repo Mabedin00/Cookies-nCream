@@ -18,7 +18,7 @@ def addToUserDB(userUsername, userPassword, userEmail):
 def createStory(title):
     db = sqlite3.connect(DB_FILE)
     try:
-        db.execute("CREATE TABLE {} (author TEXT PRIMARY KEY, entry TEXT);".format(title))
+        db.execute("""CREATE TABLE {} (author TEXT PRIMARY KEY, entry TEXT);""".format(title))
         db.commit()
         db.close()
         return True
