@@ -44,7 +44,7 @@ def searchForAuthor(username):
         story = story[0]
         # returns the user's username if the user has edited the story
         command = """SELECT author FROM {} WHERE author = '{}';""".format(story, username)
-        # if the list has any elements (i.e. if the user edited the story)
+        # if the list has any elements (i.e. if the user edited the story), add the story to editedStories
         if len(list(db.execute(command))):
             editedStories.append(story)
         else:
