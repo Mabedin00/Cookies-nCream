@@ -87,6 +87,8 @@ def viewAll():
         story = session['story']
     if session['story'] == None:
         story = request.args.get('story')
+    if session['story'] != None and request.args.get('story') != None:
+        story = session['story']
     if request.args.get('story') == None and session['story'] == None:
         flash("You can't view nothing")
         return redirect(url_for('main'))
