@@ -6,6 +6,7 @@
     {% for message in get_flashed_messages() %}
         <b> {{ message }} </b> <br>
     {% endfor %}
+    
     <form method = "GET" action = "/processRegistration">
         Username: <input type="text" name="username"><br> <br>
         Password: <input type="password" name="password"><br> <br>

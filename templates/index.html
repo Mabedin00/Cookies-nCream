@@ -1,8 +1,10 @@
 {% extends "template.html" %}
 
-{% block title %} Hello {% endblock %}
+{% block title %} Oreos {% endblock %}
 
 {% block body %}
+    <h1> Welcome </h1>
+    <h2> Join to start your adventure! </h2>
     {% for message in get_flashed_messages() %}
         <b> {{ message }} </b> <br>
     {% endfor %}
@@ -14,6 +16,7 @@
         <input type="submit" name="submit" value = "Login">
     </form>
     <br>
+
     <form method = "GET" action = "/register">
         <input type = "submit" name="submit" value = "Register">
     </form>

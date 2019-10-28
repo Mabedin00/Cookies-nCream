@@ -1,6 +1,6 @@
 {% extends "template.html" %}
 
-{% block title %} Welcome! {% endblock %}
+{% block title %} Home {% endblock %}
 
 {% block head %} <h1> Welcome {{username}} </h1> {% endblock %}
 
@@ -8,8 +8,6 @@
     {% for message in get_flashed_messages() %}
         <b> {{ message }} </b> <br>
     {% endfor %} <br>
-
-    {% block header %} {% endblock %}
 
     <b> Edited Stories: </b>
     <form method = "GET" action = "/viewAll">

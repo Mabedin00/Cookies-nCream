@@ -84,7 +84,6 @@ def appendToStory():
     databaseUtils.addToStoryDB(story, session['username'], request.args.get('newText'))
     return redirect(url_for('viewAll'))
 
-
 @app.route('/viewAll')
 def viewAll():
     session['story'] = request.args.get('story');
