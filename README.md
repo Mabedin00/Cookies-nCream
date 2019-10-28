@@ -12,7 +12,7 @@ Database 				        Mohidul Abedin </br>
 
 The first step to run our website is to download flask in the terminal using the following commands:</br>
 
-```
+``` shell
 python3 -m venv <virtual environment name>
 
 . <virtual environment name>/bin/activate
@@ -24,13 +24,13 @@ Although using a "virtual environment" is not necessary, it makes downloading fl
 
 
 The next step is to clone our repository:</br>
-```
+``` shell
 git clone https://github.com/Mabedin00/Cookies-nCream.git 
 ```
 </br></br>
 
 Next, navigate to the appropriate directory and activate the app with the following command:
-```
+``` shell
 python3 app.py</br></br>
 ```
 
