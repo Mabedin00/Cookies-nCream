@@ -100,6 +100,7 @@ def addForm():
 @app.route('/addPage')
 def addPage():
     if databaseUtils.createStory(request.args.get('storyTitle')):
+        session['story'] = request.args.get('storyTitle')
         databaseUtils.addToStoryDB(request.args.get('storyTitle'), session['username'], request.args.get('text'))
         return render_template('viewAll.html',
                                 title = request.args.get('storyTitle'),
