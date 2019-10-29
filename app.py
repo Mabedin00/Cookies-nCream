@@ -83,18 +83,17 @@ def viewAll():
     # would be None.
     # this sets story to the arg that isn't None. If they are
     # both None, there's an error
-    if request.args.get('story') == None:
-        story = session['story']
-    if session['story'] == None:
-        story = request.args.get('story')
-    if session['story'] != None and request.args.get('story') != None:
-        story = session['story']
-    if request.args.get('story') == None and session['story'] == None:
+
+    if 'story' not in session and request.args.get('story') == None:
         flash("You can't view nothing")
         return redirect(url_for('main'))
+    elif request.args.get('story') == None:
+        story = session['story']
+    else:
+        story = request.args.get('story')
     return render_template('viewAll.html'
                          , title = story
-                         , text = story)
+                         , text = databaseUtils.getEntries(story))
 
 @app.route('/processAppendView')
 def processAppendView():
