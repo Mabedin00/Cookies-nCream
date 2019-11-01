@@ -5,10 +5,12 @@
 {% block head %} <h1> {{title}} </h1> {% endblock %}
 
 {% block body %}
+<div class="content">
     {{text}}
-    <br><br>
+</div>
+<br><br>
 
-    <form action = "/">
-        <input type = "submit" value = "Go back to homepage" />
-    </form>
+<form action="/">
+    <input type="submit" value="Go back to homepage" />
+</form>
 {% endblock %}
