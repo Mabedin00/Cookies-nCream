@@ -1,3 +1,11 @@
+# K #21: Stuylin'
+
+Due **R 2019-11-07**, 8:00am, EST.
+
+**As a duo**, pick a Project 0 from the SoftDev period following yours, fork it, and apply your own custom CSS to it.
+
+---
+
 # Cookies-nCream
 
 Scenario One: Cookies 'n Cream
